@@ -1,0 +1,12 @@
+{
+  "name": "neon-send-money",
+  "displayName": "neon-send-money",
+  "expo": {
+    "name": "neon-send-money",
+    "slug": "neon-send-money",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
