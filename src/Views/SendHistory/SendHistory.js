@@ -1,10 +1,15 @@
 import React, {Component} from 'react';
-import StoreMoney from '../../store/StoreMoney';
+import { getTransactions } from '../../api/money';
 import {
     Text,
     FlatList,
-    Image
+    Image,
+    StatusBar,
+    Dimensions,
+    View,
+    TouchableOpacity
 } from "react-native";
+import Contact from '../../Components/Contact';
 
 
 export default class SendHistory extends Component {
@@ -17,7 +22,7 @@ export default class SendHistory extends Component {
     }
 
     async componentDidMount() {
-        let storeHistoryTransaction = await StoreMoney.getStoreHistoryTransaction();
+        let storeHistoryTransaction = await getTransactions();
         if(storeHistoryTransaction){
             this.setState({
                 historyTransaction: storeHistoryTransaction
@@ -29,10 +34,11 @@ export default class SendHistory extends Component {
 
     _renderItemContact = (item) => {
         return (
-            <>
-                <Image style={{width: 50, height: 50}} resizeMode={'cover'} source={{uri: item.photo}} />
-                <Text>{item.name} - {item.phone}</Text>
-            </>
+            <View>
+                <TouchableOpacity>
+                    <Contact name={item.clienteName} photo={item.clientPhoto} phone={item.clientPhone} moneyValue={item.moneyValue} />
+                </TouchableOpacity>
+            </View>
         )
     }
 
@@ -40,12 +46,19 @@ export default class SendHistory extends Component {
         let { historyTransaction } = this.state; 
         return (
             <>
+                <StatusBar
+                    backgroundColor="#2196F3"
+                    barStyle="light-content"
+                />
                 <FlatList 
                     data={historyTransaction}
                     keyExtractor={(item, index)=>index.toString()}
                     renderItem={({ item, index }) => this._renderItemContact(item)}
+                    style={{backgroundColor: "#2196F3"}}
                 />
             </>
         )
     }
 }
+
+const largura = Dimensions.get("screen").width;

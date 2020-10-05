@@ -4,9 +4,13 @@ import {
     StyleSheet,
     Text,
     View,
-    Image
+    Image,
+    Dimensions,
+    Fragment,
+    StatusBar
 } from "react-native";
-import { getUserHub } from '../../api/users'
+import { getUserHub } from '../../api/user'
+import UserHub from '../../Components/UserHub';
 import StoreUser from '../../store/StoreUser';
 
 export default class Hub extends Component {
@@ -19,19 +23,10 @@ export default class Hub extends Component {
     }
 
     async componentDidMount() {
-        let storeUser = await StoreUser.getStoreUser();
-        if(!storeUser){
-            getUserHub().then(async userHub => {
-                this.setState({
-                    userHub 
-                });
-                await StoreUser.setStoreUser(userHub);
-            });
-        } else {
-            this.setState({
-                userHub: storeUser
-            });
-        }
+        let storeUser = await getUserHub();
+        this.setState({
+            userHub: storeUser
+        });
     }
 
     componentDidUpdate() {}
@@ -51,25 +46,55 @@ export default class Hub extends Component {
     }
 
     render() {
-
         let { userHub } = this.state;
         return (
-            <View>
-                <Image style={{width: 100, height: 100}} resizeMode={'cover'} source={{uri:userHub.photo}} />
-                <Text>{userHub.name}</Text>
-                <Button title="Send Money" onPress={this._toSendMoney} />
-                <Button title="Send History" onPress={this._toSendHistory} />
-                <Button title="Clear" onPress={this._clear} />
+            <View  style={styles.container}>
+                <StatusBar
+                    backgroundColor="#2196F3"
+                    barStyle="light-content"
+                />
+                <UserHub 
+                    userHub={userHub} 
+                    toSendMoney={this._toSendMoney} 
+                    toSendHistory={this._toSendHistory} 
+                    clear={this._clear} />
             </View>
         )
     }
 }
 
+const largura = Dimensions.get("screen").width;
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#2196F3',
         alignItems: 'center',
-        justifyContent: 'center'
-    }
+    },
+    containerHub: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: largura*0.8
+    },
+    containerButtons: {
+        flex: 1,
+        backgroundColor: '#2196F3',
+        justifyContent: 'center',
+        width: largura*0.7,
+    },
+    photo:{
+        width: largura*0.4,
+        height: largura*0.4,
+        margin: largura*0.2,
+        borderRadius: 80
+    },
+    text:{
+        height: largura*0.4,
+        color: 'white',
+        marginBottom: largura*0.02 
+    },
+    buttons: {
+        height: 50
+    },
 });

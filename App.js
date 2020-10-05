@@ -1,26 +1,45 @@
-import {StatusBar} from 'expo-status-bar';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {StyleSheet, Text, View, Button} from 'react-native';
+import {StyleSheet} from 'react-native';
 import Hub from './src/Views/Hub/Hub'
 import SendHistory from './src/Views/SendHistory/SendHistory'
 import SendMoney from './src/Views/SendMoney/SendMoney'
 
-export default function App() { 
+export default function App() {
     const Stack = createStackNavigator();
 
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="Home" screenOptions={{cardStyle: styles.container}}>
+            <Stack.Navigator
+                screenOptions={
+                    {cardStyle: styles.container}
+            }>
                 <Stack.Screen name="Hub"
-                    component={Hub} options={
+                    component={Hub}
+                    options={
                         {headerShown: false}
-                }/>
+                    }/>
                 <Stack.Screen name="SendMoney"
-                    component={SendMoney} options={{title: 'Enviar Dinheiro'}}/>
+                    component={SendMoney}
+                    options={
+                        {
+                            title: 'Enviar Dinheiro',
+                            headerStyle: styles.stackScreenHeader,
+                            headerTitleStyle: styles.stackScreenHeaderTitle,
+                            headerBackTitleStyle: styles.stackScreenHeaderBack
+                        }
+                    }/>
                 <Stack.Screen name="SendHistory"
-                    component={SendHistory} options={{title: 'Histórico de Envios'}}/>
+                    component={SendHistory}
+                    options={
+                        {
+                            title: 'Histórico de Envios',
+                            headerStyle: styles.stackScreenHeader,
+                            headerTitleStyle: styles.stackScreenHeaderTitle,
+                            headerBackTitleStyle: styles.stackScreenHeaderBack,
+                        }
+                    }/>
             </Stack.Navigator>
         </NavigationContainer>
     );
@@ -28,9 +47,18 @@ export default function App() {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#fff',
+        // flex: 1,
+        // backgroundColor: '#fff',
         // alignItems: 'center',
-        justifyContent: 'center'
+        // justifyContent: 'center'
+    },
+    stackScreenHeader: {
+        backgroundColor: '#2196F3'
+    },
+    stackScreenHeaderTitle: {
+        color: 'white'
+    },
+    stackScreenHeaderBack: {
+        backgroundColor: 'white'
     }
 });
