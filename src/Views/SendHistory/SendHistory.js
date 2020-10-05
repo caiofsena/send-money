@@ -60,5 +60,3 @@ export default class SendHistory extends Component {
         )
     }
 }
-
-const largura = Dimensions.get("screen").width;
