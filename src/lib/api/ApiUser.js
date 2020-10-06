@@ -1,4 +1,4 @@
-import StoreUser from '../store/StoreUser';
+import StoreUser from '../../store/StoreUser';
 
 const getUserHub = async() => {
     let storeUser = await StoreUser.getStoreUser();

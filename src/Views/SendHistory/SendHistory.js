@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
-import { getTransactions } from '../../api/money';
+import { getTransactions } from '../../lib/api/ApiMoney';
 import {
     FlatList,
     StatusBar,
     View,
     TouchableOpacity
 } from "react-native";
-import Contact from '../../Components/Contact';
+import Contact from '../../Components/Contact/Contact';
+import styles from './styles';
 
 
 export default class SendHistory extends Component {
@@ -51,7 +52,7 @@ export default class SendHistory extends Component {
                     data={historyTransaction}
                     keyExtractor={(item, index)=>index.toString()}
                     renderItem={({ item, index }) => this._renderItemContact(item)}
-                    style={{backgroundColor: "#2196F3"}}
+                    style={styles.list}
                 />
             </>
         )

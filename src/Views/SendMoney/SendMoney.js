@@ -5,12 +5,12 @@ import { getContactsHub, getToken } from '../../api/user';
 import { createTransaction, addToHistoryTransaction } from '../../api/money';
 import StoreUser from '../../store/StoreUser';
 import StoreMoney from '../../store/StoreMoney';
-import ListLoader from '../../Components/ListLoader'
 import {
     FlatList,
     TouchableOpacity,
     StatusBar
 } from "react-native";
+import styles from './styles';
 
 export default class SendMoney extends Component {
 
@@ -103,7 +103,6 @@ export default class SendMoney extends Component {
         let { contactsHub, modalSendMoneyVisible, contactHubSelected } = this.state; 
         return (
             <>
-                {/* <ListLoader /> */}
                 <StatusBar
                     backgroundColor="#2196F3"
                     barStyle="light-content"
@@ -112,7 +111,7 @@ export default class SendMoney extends Component {
                     data={contactsHub}
                     keyExtractor={(item, index)=>index.toString()}
                     renderItem={({ item, index }) => this._renderItemContact(item, index, modalSendMoneyVisible)}
-                    style={{backgroundColor: "#2196F3"}}
+                    style={styles.list}
                 />
                 <ModalSendMoney
                     modalSendMoneyVisible={modalSendMoneyVisible} 
