@@ -1,11 +1,8 @@
 import React, {Component} from 'react';
 import { getTransactions } from '../../api/money';
 import {
-    Text,
     FlatList,
-    Image,
     StatusBar,
-    Dimensions,
     View,
     TouchableOpacity
 } from "react-native";

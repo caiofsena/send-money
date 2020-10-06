@@ -1,8 +1,7 @@
-import React, { Fragment } from 'react';
-import { useState, useEffect } from 'react';
+import React from 'react';
 import {Text, TextInput, Image, View, StyleSheet, Modal, TouchableHighlight, Dimensions} from 'react-native';
 
-const ModalSendMoney = ({modalSendMoneyVisible, contactHubSelected, updateModalSendMoneyVisible, updateMoneyValue, sendTransaction}) => {
+const ModalSendMoney = ({modalSendMoneyVisible, contactHubSelected, updateModalSendMoneyVisible, moneyValue, updateMoneyValue, sendTransaction}) => {
     return (
         <Modal
             animationType="fade"

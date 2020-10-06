@@ -5,6 +5,7 @@ import { getContactsHub, getToken } from '../../api/user';
 import { createTransaction, addToHistoryTransaction } from '../../api/money';
 import StoreUser from '../../store/StoreUser';
 import StoreMoney from '../../store/StoreMoney';
+import ListLoader from '../../Components/ListLoader'
 import {
     FlatList,
     TouchableOpacity,
@@ -102,6 +103,7 @@ export default class SendMoney extends Component {
         let { contactsHub, modalSendMoneyVisible, contactHubSelected } = this.state; 
         return (
             <>
+                {/* <ListLoader /> */}
                 <StatusBar
                     backgroundColor="#2196F3"
                     barStyle="light-content"
@@ -116,6 +118,7 @@ export default class SendMoney extends Component {
                     modalSendMoneyVisible={modalSendMoneyVisible} 
                     contactHubSelected={contactHubSelected} 
                     updateModalSendMoneyVisible={this._updateModalSendMoneyVisible}
+                    moneyValue={this.state.moneyValue}
                     updateMoneyValue={this._updateMoneyValue}
                     sendTransaction={this._sendTransaction}
                 />

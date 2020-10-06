@@ -1,12 +1,7 @@
 import React, {Component} from 'react';
 import {
-    Button,
     StyleSheet,
-    Text,
     View,
-    Image,
-    Dimensions,
-    Fragment,
     StatusBar
 } from "react-native";
 import { getUserHub } from '../../api/user'
