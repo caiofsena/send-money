@@ -12,7 +12,7 @@ const UserHub = ({userHub, toSendMoney, toSendHistory, clear}) => {
             <View style={styles.containerButtons}>
                 <Button style={styles.buttons} icon="cash-multiple" mode="contained" onPress={toSendMoney}>Enviar Dinheiro</Button>
                 <Button style={styles.buttons} icon="history" mode="contained" onPress={toSendHistory}>Histórico de Envios</Button>
-                <Button style={styles.buttons} icon="cancel" mode="contained" onPress={clear}>Limpar Dados</Button>
+                {/* <Button style={styles.buttons} icon="cancel" mode="contained" onPress={clear}>Limpar Dados</Button> */}
             </View>
         </View>
     )

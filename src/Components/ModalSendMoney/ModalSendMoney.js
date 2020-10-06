@@ -28,6 +28,7 @@ const ModalSendMoney = ({modalSendMoneyVisible, contactHubSelected, updateModalS
                     <Text style={{...styles.text, fontSize: largura*0.04}}>Valor a enviar:</Text>
                     <TextInputMask
                         type={'money'}
+                        placeholder={'R$ 0,00'}
                         style={styles.input}
                         value={moneyValue}
                         onChangeText={text => {
