@@ -1,13 +1,14 @@
-import StoreUser from '../../store/StoreUser';
+import StoreUser from '../../lib/store/StoreUser';
 
 const getUserHub = async() => {
     let storeUser = await StoreUser.getStoreUser();
     if(!storeUser){
-        const userHubResponse = await fetch('https://randomuser.me/api/?inc=name,picture,login&nat=br');
+        const userHubResponse = await fetch('https://randomuser.me/api/?inc=name,picture,login,email&nat=br');
         const userHubJson = await userHubResponse.json();
         let userHub = {
             name: userHubJson.results[0].name.first + ' ' + userHubJson.results[0].name.last,
             photo: userHubJson.results[0].picture.large,
+            email: userHubJson.results[0].email,
             token: userHubJson.results[0].login.uuid
         }
         await StoreUser.setStoreUser(userHub);
@@ -17,13 +18,13 @@ const getUserHub = async() => {
     }
 }
 
-const getToken = async() => {
+const generateToken = async() => {
     let storeUser = await StoreUser.getStoreUser();
     return storeUser.token;
 }
 
 const getContactsHub = async() => {
-    const contactsHubResponse = await fetch('https://randomuser.me/api/?results=3&inc=name,picture,phone&nat=br');
+    const contactsHubResponse = await fetch('https://randomuser.me/api/?results=15&inc=name,picture,phone&nat=br');
     const contatcsHubJson = await contactsHubResponse.json();
 
     let contatcsHub = [];
@@ -40,4 +41,4 @@ const getContactsHub = async() => {
     return contatcsHub;
 }
 
-export { getUserHub, getContactsHub, getToken };
+export { getUserHub, getContactsHub, generateToken };

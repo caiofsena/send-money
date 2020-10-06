@@ -3,9 +3,9 @@ import {
     View,
     StatusBar
 } from "react-native";
-import { getUserHub } from '../../api/user'
-import UserHub from '../../Components/UserHub';
-import StoreUser from '../../store/StoreUser';
+import { getUserHub } from '../../lib/api/ApiUser'
+import UserHub from '../../Components/UserHub/UserHub';
+import StoreUser from '../../lib/store/StoreUser';
 import styles from './styles';
 
 export default class Hub extends Component {

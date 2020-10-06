@@ -1,8 +1,13 @@
 import React from 'react';
-import {Text, TextInput, Image, View, Modal, TouchableHighlight} from 'react-native';
+import { useState } from 'react';
+import {Text, TextInput, Image, View, Modal, TouchableHighlight, Dimensions, TouchableOpacity} from 'react-native';
+import { List } from 'react-native-paper';
+import { TextInputMask } from 'react-native-masked-text'
 import styles from './styles';
 
-const ModalSendMoney = ({modalSendMoneyVisible, contactHubSelected, updateModalSendMoneyVisible, moneyValue, updateMoneyValue, sendTransaction}) => {
+const ModalSendMoney = ({modalSendMoneyVisible, contactHubSelected, updateModalSendMoneyVisible, sendMoney}) => {
+    const [moneyValue, setMoneyValue] = useState('');
+    const largura = Dimensions.get("screen").width;
     return (
         <Modal
             animationType="fade"
@@ -11,26 +16,31 @@ const ModalSendMoney = ({modalSendMoneyVisible, contactHubSelected, updateModalS
         >
             <View style={styles.centeredView}>
                 <View style={styles.modalView}>
-                    <TouchableHighlight
+                    <TouchableOpacity
                         style={styles.closeButton}
-                        onPress={() => {
-                            updateModalSendMoneyVisible()
-                        }}
+                        onPress={() => {updateModalSendMoneyVisible()}}
                     >
-                        <Text style={styles.buttonText}>x</Text>
-                    </TouchableHighlight>
+                        <List.Icon color="white" icon="close" />
+                    </TouchableOpacity>
                     <Image style={styles.photo} resizeMode={'cover'} source={{uri: contactHubSelected.photo}} />
                     <Text style={styles.text}>{contactHubSelected.name}</Text>
                     <Text style={styles.text}>{contactHubSelected.phone}</Text>
                     <Text style={{...styles.text, fontSize: largura*0.04}}>Valor a enviar:</Text>
-                    <TextInput style={styles.input} placeholder="R$ 0,00"  onChangeText={value => updateMoneyValue(value)} />
+                    <TextInputMask
+                        type={'money'}
+                        style={styles.input}
+                        value={moneyValue}
+                        onChangeText={text => {
+                            setMoneyValue(text)
+                        }}
+                        />
                     <TouchableHighlight
                         style={styles.sendButton}
-                        onPress={
-                            sendTransaction
-                        }
+                        onPress={() => {
+                            sendMoney(moneyValue)
+                        }}
                     >
-                        <Text style={styles.buttonText}>Enviar</Text>
+                        <Text style={styles.sendButtonText}>Enviar</Text>
                     </TouchableHighlight>
                 </View>
             </View>

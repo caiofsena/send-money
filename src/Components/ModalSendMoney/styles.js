@@ -34,12 +34,15 @@ const styles = StyleSheet.create({
         height: largura*0.13,
     },
     closeButton: {
-        borderRadius: 20,
-        padding: 5,
-        elevation: 2,
         alignSelf: 'baseline'
     },
-    buttonText: {
+    sendButtonText: {
+        color: "white",
+        fontWeight: "bold",
+        textAlign: 'center',
+        fontSize: largura*0.06
+    },
+    closeButtonText: {
         color: "white",
         fontWeight: "bold",
         textAlign: 'center',

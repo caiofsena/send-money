@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { getTransactions } from '../../lib/api/ApiMoney';
+import { getTransfers } from '../../lib/api/ApiMoney';
 import {
     FlatList,
     StatusBar,
@@ -15,15 +15,15 @@ export default class SendHistory extends Component {
     constructor(props) {
         super(props);
         this.state={
-            historyTransaction: []
+            historyTransfers: []
         };
     }
 
     async componentDidMount() {
-        let storeHistoryTransaction = await getTransactions();
-        if(storeHistoryTransaction){
+        let storeHistoryTransfers = await getTransfers();
+        if(storeHistoryTransfers){
             this.setState({
-                historyTransaction: storeHistoryTransaction
+                historyTransfers: storeHistoryTransfers
             });
         }
     }
@@ -32,16 +32,12 @@ export default class SendHistory extends Component {
 
     _renderItemContact = (item) => {
         return (
-            <View>
-                <TouchableOpacity>
-                    <Contact name={item.clienteName} photo={item.clientPhoto} phone={item.clientPhone} moneyValue={item.moneyValue} />
-                </TouchableOpacity>
-            </View>
+            <Contact name={item.clienteName} photo={item.clientPhoto} phone={item.clientPhone} moneyValue={item.moneyValue} />
         )
     }
 
     render() {
-        let { historyTransaction } = this.state; 
+        let { historyTransfers } = this.state; 
         return (
             <>
                 <StatusBar
@@ -49,7 +45,7 @@ export default class SendHistory extends Component {
                     barStyle="light-content"
                 />
                 <FlatList 
-                    data={historyTransaction}
+                    data={historyTransfers}
                     keyExtractor={(item, index)=>index.toString()}
                     renderItem={({ item, index }) => this._renderItemContact(item)}
                     style={styles.list}

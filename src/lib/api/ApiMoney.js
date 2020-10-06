@@ -1,6 +1,6 @@
 import StoreMoney from '../store/StoreMoney';
 
-const getTransactions = async() => {
+const getTransfers = async() => {
     const transactionResponse = await fetch('https://jsonplaceholder.typicode.com/posts');
     if(transactionResponse){
         return await StoreMoney.getStoreHistoryTransaction();
@@ -9,27 +9,27 @@ const getTransactions = async() => {
     }
 }
 
-const createTransaction = async(transaction) => {
+const createTransfer = async(transaction) => {
     const cabecalho = {
         method: "POST",
         body: JSON.stringify(transaction)
     };
-    const createTransactionResponse = await fetch('https://jsonplaceholder.typicode.com/posts', cabecalho);
+    const createTransferResponse = await fetch('https://jsonplaceholder.typicode.com/posts', cabecalho);
 
-    if(createTransactionResponse.ok){
+    if(createTransferResponse.ok){
         return true;
     } else {
         throw new Error("Não foi possível realizar o envio do dinheiro");
     }
 }
 
-const addToHistoryTransaction = async(newTransaction) => {
-    let historyTransaction = await StoreMoney.getStoreHistoryTransaction();
-    if(historyTransaction == null){
-        historyTransaction = [];
+const addToHistoryTransfers = async(newTransaction) => {
+    let historyTransfers = await StoreMoney.getStoreHistoryTransaction();
+    if(historyTransfers == null){
+        historyTransfers = [];
     }
-    historyTransaction.push(newTransaction);
-    return historyTransaction;
+    historyTransfers.push(newTransaction);
+    return historyTransfers;
 }
 
-export { getTransactions, createTransaction, addToHistoryTransaction };
+export { getTransfers, createTransfer, addToHistoryTransfers };

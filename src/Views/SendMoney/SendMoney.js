@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import Contact from '../../Components/Contact'
-import ModalSendMoney from '../../Components/ModalSendMoney'
-import { getContactsHub, getToken } from '../../api/user';
-import { createTransaction, addToHistoryTransaction } from '../../api/money';
-import StoreUser from '../../store/StoreUser';
-import StoreMoney from '../../store/StoreMoney';
+import Contact from '../../Components/Contact/Contact'
+import ModalSendMoney from '../../Components/ModalSendMoney/ModalSendMoney'
+import { getContactsHub, generateToken } from '../../lib/api/ApiUser';
+import { createTransfer, addToHistoryTransfers } from '../../lib/api/ApiMoney';
+import StoreUser from '../../lib/store/StoreUser';
+import StoreMoney from '../../lib/store/StoreMoney';
 import {
     FlatList,
     TouchableOpacity,
@@ -19,9 +19,8 @@ export default class SendMoney extends Component {
         this.state={
             contactsHub: [],
             contactHubSelected: {},
-            historyTransaction: [],
-            moneyValue: 0,
-            modalSendMoneyVisible: false,
+            historyTransfers: [],
+            modalSendMoneyVisible: false
         };
     }
     
@@ -45,25 +44,25 @@ export default class SendMoney extends Component {
     
     componentWillUnmount() {}
     
-    _sendTransaction = async() => {
-        let { contactHubSelected, modalSendMoneyVisible, moneyValue } = this.state;
+    _sendMoney = async(money) => {
+        let { contactHubSelected, modalSendMoneyVisible } = this.state;
         let id = await StoreMoney.getIdTransaction();
-        let token = await getToken();
+        let token = await generateToken();
         const newTransaction = {
             clientId: id,
             clienteName: contactHubSelected.name,
             clientPhoto: contactHubSelected.photo,
             clientPhone: contactHubSelected.phone,
             token: token,
-            moneyValue: moneyValue
+            moneyValue: money
         }
-        await createTransaction(newTransaction);
-        let historyTransaction = await addToHistoryTransaction(newTransaction);
+        await createTransfer(newTransaction);
+        let historyTransfers = await addToHistoryTransfers(newTransaction);
         this.setState({
-            historyTransaction,
+            historyTransfers,
             modalSendMoneyVisible: !modalSendMoneyVisible
         });
-        await StoreMoney.setStoreHistoryTransaction(historyTransaction);
+        await StoreMoney.setStoreHistoryTransaction(historyTransfers);
         this.props.navigation.navigate('Hub');
     }
         
@@ -85,12 +84,6 @@ export default class SendMoney extends Component {
             modalSendMoneyVisible: !modalSendMoneyVisible,
             contactHubSelected: contactsHub[index]
         });
-    }
-
-    _updateMoneyValue = (moneyValue) => {
-        this.setState({
-            moneyValue
-        })
     }
 
     _updateModalSendMoneyVisible = () => {
@@ -117,9 +110,7 @@ export default class SendMoney extends Component {
                     modalSendMoneyVisible={modalSendMoneyVisible} 
                     contactHubSelected={contactHubSelected} 
                     updateModalSendMoneyVisible={this._updateModalSendMoneyVisible}
-                    moneyValue={this.state.moneyValue}
-                    updateMoneyValue={this._updateMoneyValue}
-                    sendTransaction={this._sendTransaction}
+                    sendMoney={this._sendMoney}
                 />
              </>   
         )

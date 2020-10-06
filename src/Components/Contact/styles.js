@@ -1,25 +1,24 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
+
+const largura = Dimensions.get("screen").width;
 
 const styles = StyleSheet.create({
     contact:{
-        flexDirection: "row",
-        alignItems: "center",
         borderBottomColor: "white",
-        borderBottomWidth: 0.2,
-        color: 'white'
+        borderBottomWidth: 0.2
     },
     photo:{
-        width: 40,
-        height: 40,
-        margin: 10,
+        width: largura*0.15,
+        height: largura*0.15,
+        margin: largura*0.01,
         borderRadius: 30
     },
-    containerLabel: {
-        flexDirection: "column",
-    },
     label: {
-        fontFamily: "Roboto",
         color: 'white'
+    },
+    labelMoney: {
+        color: 'white',
+        marginTop: largura*0.05
     }
 });
 
