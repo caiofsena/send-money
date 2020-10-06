@@ -14,6 +14,6 @@ Aplicativo que apresenta o fluxo de três telas, simulando o envio de dinheiro p
 
 <h3>build do projeto</h3>
 
-android:</br>
-<code>yarn install</code>
+android:<br>
+<code>yarn install</code><br>
 <code>yarn android</code>
