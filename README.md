@@ -12,8 +12,14 @@ Aplicativo que apresenta o fluxo de três telas, simulando o envio de dinheiro p
 "react-native-gesture-handler": "^1.8.0",<br>
 "react-native-masked-text": "^1.13.0"
 
+<h3>Funcionalidades</h3>
+* Apresentação na tela inicial do nome, foto e email do usuário, além dos botões para Enviar Dinheiro e Histórico de Envios.
+
 <h3>build do projeto</h3>
 
-android:<br>
 <code>yarn install</code><br>
-<code>yarn android</code>
+
+android:<br>
+<code>yarn android</code><br>
+ios:<br>
+<code>yarn ios</code>
