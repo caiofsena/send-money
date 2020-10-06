@@ -1,6 +1,6 @@
 # neon-send-money
 
-Este é um aplicativo de testes para mostrar minhas habilidades sobre o desenvolvimento de aplicações móveis multiplataforma usando react-native
+Aplicativo que apresenta o fluxo de três telas, simulando o envio de dinheiro para um determinado contato da pessoa, assim também como seu histórico de envios de dinheiro.
 
 <h2>libs</h2>
 
