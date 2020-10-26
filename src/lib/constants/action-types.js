@@ -1,0 +1,2 @@
+export const LIST_CONTACTS = "LIST_CONTACTS";
+export const LOAD_USER_HUB = "LOAD_USER_HUB";

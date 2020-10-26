@@ -1,4 +1,6 @@
 import React from 'react';
+import { Provider } from 'react-redux';
+import store from './src/lib/store/index'
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {StyleSheet} from 'react-native';
@@ -10,38 +12,40 @@ export default function App() {
     const Stack = createStackNavigator();
 
     return (
-        <NavigationContainer>
-            <Stack.Navigator
-                screenOptions={
-                    {cardStyle: styles.container}
-            }>
-                <Stack.Screen name="Hub"
-                    component={Hub}
-                    options={
-                        {headerShown: false}
-                    }/>
-                <Stack.Screen name="SendMoney"
-                    component={SendMoney}
-                    options={
-                        {
-                            title: 'Enviar Dinheiro',
-                            headerStyle: styles.stackScreenHeader,
-                            headerTitleStyle: styles.stackScreenHeaderTitle,
-                            headerBackTitleStyle: styles.stackScreenHeaderBack
-                        }
-                    }/>
-                <Stack.Screen name="SendHistory"
-                    component={SendHistory}
-                    options={
-                        {
-                            title: 'Histórico de Envios',
-                            headerStyle: styles.stackScreenHeader,
-                            headerTitleStyle: styles.stackScreenHeaderTitle,
-                            headerBackTitleStyle: styles.stackScreenHeaderBack,
-                        }
-                    }/>
-            </Stack.Navigator>
-        </NavigationContainer>
+        <Provider store={store}>
+            <NavigationContainer>
+                <Stack.Navigator
+                    screenOptions={
+                        {cardStyle: styles.container}
+                }>
+                    <Stack.Screen name="Hub"
+                        component={Hub}
+                        options={
+                            {headerShown: false}
+                        }/>
+                    <Stack.Screen name="SendMoney"
+                        component={SendMoney}
+                        options={
+                            {
+                                title: 'Enviar Dinheiro',
+                                headerStyle: styles.stackScreenHeader,
+                                headerTitleStyle: styles.stackScreenHeaderTitle,
+                                headerBackTitleStyle: styles.stackScreenHeaderBack
+                            }
+                        }/>
+                    <Stack.Screen name="SendHistory"
+                        component={SendHistory}
+                        options={
+                            {
+                                title: 'Histórico de Envios',
+                                headerStyle: styles.stackScreenHeader,
+                                headerTitleStyle: styles.stackScreenHeaderTitle,
+                                headerBackTitleStyle: styles.stackScreenHeaderBack,
+                            }
+                        }/>
+                </Stack.Navigator>
+            </NavigationContainer>
+        </Provider>
     );
 }
 

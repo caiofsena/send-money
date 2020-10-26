@@ -3,25 +3,28 @@ import {
     View,
     StatusBar
 } from "react-native";
-import { getUserHub } from '../../lib/api/ApiUser'
+import { connect } from 'react-redux';
+import { LOAD_USER_HUB } from "../../lib/constants/action-types";
+// import { getUserHub } from '../../lib/api/ApiUser'
 import UserHub from '../../Components/UserHub/UserHub';
 import StoreUser from '../../lib/store/StoreUser';
 import styles from './styles';
 
-export default class Hub extends Component {
+class Hub extends Component {
 
     constructor(props) {
         super(props);
-        this.state={
-            userHub: {}
-        }
+        // this.state={
+        //     userHub: {}
+        // }
     }
 
     async componentDidMount() {
-        let storeUser = await getUserHub();
-        this.setState({
-            userHub: storeUser
-        });
+        // let storeUser = await getUserHub();
+        // this.setState({
+        //     userHub: this.props.userHub
+        // });
+        this.props.loadUserHub();
     }
 
     componentDidUpdate() {}
@@ -41,7 +44,7 @@ export default class Hub extends Component {
     }
 
     render() {
-        let { userHub } = this.state;
+        // let { userHub } = this.state;
         return (
             <View  style={styles.container}>
                 <StatusBar
@@ -49,7 +52,7 @@ export default class Hub extends Component {
                     barStyle="light-content"
                 />
                 <UserHub 
-                    userHub={userHub} 
+                    userHub={this.props.userHub} 
                     toSendMoney={this._toSendMoney} 
                     toSendHistory={this._toSendHistory} 
                     clear={this._clear} />
@@ -57,3 +60,21 @@ export default class Hub extends Component {
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        userHub: state.userHub
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        loadUserHub: () => {
+            dispatch({
+                action: LOAD_USER_HUB
+            });
+        }
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Hub);
